@@ -33,9 +33,91 @@ Traditional dementia screening often involves lengthy clinical appointments, hig
 2. **Digitized Neuropsychological Tests**: Dynamically generates randomized sessions covering MMSE, CDR-SB, and ADAS-Cog protocols.
 3. **Multi-Modal Decision Fusion**: Combines acoustic signals (40% weight) with cognitive domain scores (60% weight) to produce a calibrated risk classification (Low, Moderate, High) alongside cognitive domain health breakdowns.
 ---
-## Key Features
-- **Dynamic Session Generation**: Every assessment session is generated on-the-fly with randomized recall word-triplets, serial math challenges, and orientation options to prevent learning/memorization biases.
-- **In-Browser Audio Recording**: Direct microphone capture with real-time waveform inspection, recording controls, and multi-format audio processing (`.webm`, `.wav`).
-- **Comprehensive Cognitive Domain Breakdown**:
-  - Memory (Registration, Delayed Recall, Recognition)
-  - Attention & Calculation (Serial Subtractions, Cancellation)
+   ```bash
+   cp .env.example .env     # On Windows: copy .env.example .env
+   ```
+   Edit `.env` to configure your SMTP settings for password reset emails:
+   ```env
+   SMTP_SERVER=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_USERNAME=your_email@gmail.com
+   SMTP_PASSWORD=your_app_password
+   ```
+5. **Start the FastAPI backend server**:
+   ```bash
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   ```
+   The backend will be available at `http://localhost:8000`. API documentation is automatically generated at `http://localhost:8000/docs`.
+   - API endpoints will be live at `http://localhost:8000`.
+   - Interactive Swagger API docs: `http://localhost:8000/docs`.
+### 2. Frontend Setup
+1. Open a new terminal and navigate to the `frontend` directory.
+2. Install dependencies:
+---
+### 3. Frontend Setup
+1. **Open a new terminal and navigate to the frontend directory**:
+   ```bash
+   cd frontend
+   ```
+2. **Install Node packages**:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+3. **Configure Frontend Environment**:
+   Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env     # On Windows: copy .env.example .env
+   ```
+   Ensure `VITE_API_URL` points to your backend:
+   ```env
+   VITE_API_URL=http://localhost:8000
+   ```
+4. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   The frontend will be available at `http://localhost:5173` (or the port specified by Vite).
+   Open your browser at `http://localhost:5173`.
+
+   ---
+## Clinical Protocols Implemented
+1. **MMSE (Mini-Mental State Examination)**
+   - 3-word registration & delayed recall
+   - Serial 7s / attention math calculation
+   - Orientation to time (Year, Season)
+   - Object naming and phrase repetition
+2. **CDR-SB (Clinical Dementia Rating Sum of Boxes)**
+   - Functional memory evaluation
+   - Judgment and problem solving
+   - Community affairs and home hobbies
+3. **ADAS-Cog (Alzheimer's Disease Assessment Scale–Cognitive)**
+   - Constructional & ideational praxis
+   - Word recognition task
+   - Spoken language ability and word-finding evaluation
+4. **Cookie Theft Picture Description Task**
+   - Standardized narrative speech assessment protocol from the *Boston Diagnostic Aphasia Examination*.
+---
+## API Reference
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/users/register` | Register new user account |
+| `POST` | `/users/login` | Authenticate and obtain JWT access token |
+| `POST` | `/users/forgot-password` | Send OTP for password recovery |
+| `POST` | `/users/reset-password` | Verify OTP and reset password |
+| `POST` | `/session/create` | Generate a fresh randomized assessment session |
+| `POST` | `/submit/speech` | Upload audio and speech transcript for feature extraction |
+| `POST` | `/submit/cognitive` | Submit raw answers for MMSE, CDR-SB, and ADAS-Cog |
+| `POST` | `/predict/` | Compute fused multi-modal risk score and domain health |
+Interactive documentation is available at `http://localhost:8000/docs` when running the backend.
+---
+## Security, Privacy & Medical Disclaimer
+### Privacy & Data Protection
+- Local test data containing personal identifiable information (PII) is kept off version control via `.gitignore`.
+- Password hashes are encrypted using `bcrypt`.
+- Secret keys and email credentials must never be committed to source control; always use `.env` files.
+### Medical Disclaimer
+> **IMPORTANT**: MindTrack is designed as a digital health research and pre-screening prototype. It is **not** a diagnostic medical device and does not replace formal clinical diagnosis by a licensed neurologist, geriatrician, or psychologist. Anyone with cognitive concerns should consult a qualified healthcare professional.
+---
+## License
+This project is licensed under the [MIT License](LICENSE).
