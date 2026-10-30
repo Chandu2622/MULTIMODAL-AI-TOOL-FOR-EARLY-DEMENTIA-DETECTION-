@@ -1,0 +1,130 @@
+# ==============================================================================
+# Environment Variables & Secrets (CRITICAL: Never commit credentials to GitHub)
+# ==============================================================================
+.env
+.env.*
+*.env
+*.env.local
+backend/.env
+frontend/.env
+# Keep template files
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# ==============================================================================
+# Sensitive / Confidential Data & Local Storage
+# (Contains personal info, password hashes, emergency contacts, assessment logs)
+# ==============================================================================
+backend/data/users.json
+backend/data/users.json.bak
+*.bak
+*.json.bak
+
+# Local Databases (SQLite / SQL engine)
+*.db
+*.sqlite
+*.sqlite3
+mindtrack.db
+
+# ==============================================================================
+# Large Model Weights & Checkpoints
+# GitHub blocks individual files > 100MB (cognitive_model.pkl is ~177MB).
+# Store these in cloud storage (Hugging Face / Google Drive / GitHub Releases)
+# or track them using Git LFS if required.
+# ==============================================================================
+backend/weights/*.pkl
+*.pkl
+*.pth
+*.pt
+*.onnx
+*.h5
+*.bin
+*.safetensors
+!backend/weights/.gitkeep
+
+# ==============================================================================
+# Python Virtual Environments & Caches
+# ==============================================================================
+venv/
+.venv/
+env/
+ENV/
+backend/venv/
+backend/.venv/
+backend/env/
+
+# Bytecode & Caches
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+*.egg-info/
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+var/
+wheels/
+share/python-wheels/
+
+# Scratch & output files
+backend/output.txt
+output.txt
+
+# ==============================================================================
+# Node.js & Frontend Build Outputs
+# ==============================================================================
+node_modules/
+frontend/node_modules/
+dist/
+dist-ssr/
+frontend/dist/
+frontend/dist-ssr/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==============================================================================
+# Uploads, Audio Recordings & Media
+# ==============================================================================
+uploads/
+recordings/
+*.wav
+*.mp3
+*.webm
+*.ogg
+
+# ==============================================================================
+# OS & Editor Files
+# ==============================================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# IDE files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
